@@ -1,23 +1,86 @@
-import logo from './logo.svg';
+import AuthComponent from './components/authentication/AuthComponent';
+import Header from './components/Header';
+import { Routes, Route } from 'react-router-dom';
+import Home from './components/Home';
+import Rosters from './components/Rosters/Rosters';
+import Leagues from './components/Leagues/Leagues';
+import Login from './components/authentication/Login';
+import Signup from './components/authentication/Signup';
+import CreateLeague from './components/Leagues/CreateLeague';
+import CreateRoster from './components/Rosters/CreateRoster';
+import JoinLeague from './components/Leagues/JoinLeague';
+import Account from './components/Account';
+import AuthMethods from './components/authentication/AuthMethods';
+
+import axios from 'axios';
+import config from './config';
+
 import './App.css';
+import { useEffect, useState, useRef } from 'react';
+import BestBallLeaderboard from './components/Leaderboard/BestBallLeaderboard';
+import SeasonLeaderboard from './components/Leaderboard/SeasonLeaderboard';
+import HowToPlay from './components/TextPages/HowToPlay';
+import AboutUs from './components/TextPages/AboutUs';
+import Footer from './components/Footer';
+
+import Alert from '@mui/material/Alert';
+
 
 function App() {
+
+  const [canCreateRoster, setCanCreateRoster] = useState(false);
+
+  const [showAlert, setShowAlert] = useState(true)
+
+  useEffect(() => {
+    axios.post(config.url + "/can-rosters-be-created").then(resp => {
+        setCanCreateRoster(resp.data.canRostersBeCreated);
+    })
+  })
+  
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const Auth = new AuthMethods();
+
+  useEffect(() => {
+    setLoggedIn(Auth.loggedIn())
+  }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {showAlert && (
+        <Alert severity="info" color="warning" onClose={() => setShowAlert(false)}>
+          Rosters open on Tuesday mornings and lock on Thursday mornings
+        </Alert>
+      )}
+
+      <Header loggedIn={loggedIn}/>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
+        <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} />} />
+
+        <Route path="/rosters" element={<AuthComponent Component={<Rosters />} />} />
+        <Route path="/create-roster" 
+          element={<AuthComponent Component={<CreateRoster canCreateRoster={canCreateRoster}/>} />} 
+        />
+
+        <Route path="/leagues" element={<AuthComponent Component={<Leagues />} />} />
+        <Route path="/create-league" element={<AuthComponent Component={<CreateLeague />} />} />
+        <Route path="/join-league" element={<AuthComponent Component={<JoinLeague />} />} />
+
+        <Route path="/best-ball-leaderboard" element={<AuthComponent Component={<BestBallLeaderboard />} />} />
+        <Route path="/leaderboard" element={<AuthComponent Component={<SeasonLeaderboard />} />} />
+
+        <Route path="/how-to-play" element={<HowToPlay />} />
+        <Route path="/about-us" element={<AboutUs />} />
+
+        <Route path="/account" element={<AuthComponent Component={<Account setLoggedIn={setLoggedIn} />} />} />
+      </Routes>
+
+      <Footer />
     </div>
   );
 }

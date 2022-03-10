@@ -1,0 +1,92 @@
+@import './defaults.scss';
+
+.home {
+    overflow-x: hidden;
+    height: 60px;
+}
+
+.tournamentName {
+    margin: 0;
+    padding: 1em 0 0 0;
+    font-size: 33px;
+
+    @include desktop {
+        font-size: 37px;
+    } 
+
+    @include largeDesktop {
+        font-size: 45px;
+    }
+
+    @include wideScreen {
+        font-size: 65px;
+    }
+}
+
+.currentTournamentBlock {
+    width: 90%;
+    height: max-content;
+    min-height: 10vh;
+    margin: 5vh 5% 0 5%;
+}
+
+.tournamentTable {
+    width: 100%;
+
+    @include largeDesktop {
+        font-size: 20px;
+    }
+
+    @include wideScreen {
+        font-size: 30px;
+    }
+}
+
+.tournamentTable .row {
+    width: 100%;
+    display: flex;
+    text-align: left;
+    margin: 1em 0;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px black;;
+}
+
+.tournamentTable .headerRow {
+    background-color: var(--blue);
+    box-shadow: none;
+    border: none;
+}
+
+.tournamentTable .tableHeader {
+    display: inline;
+    width: 100%;
+    width: 33%;
+    padding: 1em 0em;
+    color: white;
+    text-align: center;
+}
+
+.tournamentTable .dataRow {
+    cursor: pointer;
+    background-color: white;
+}
+
+.tournamentTable .data {
+    display: inline;
+    width: 100%;
+    padding: 1em 0em;
+    width: 33%;
+    text-align: center;
+}
+
+// For material ui alert
+.MuiAlert-message.css-acap47-MuiAlert-message {
+    @include largeDesktop {
+        font-size: 16px !important;
+    }
+
+    @include wideScreen {
+        font-size: 24px !important;
+    }
+}

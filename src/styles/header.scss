@@ -1,0 +1,21 @@
+@import './defaults.scss';
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 13vh;
+    width: 100vw;
+    background-color: var(--cyan-blue);
+    border-bottom: 1px solid black;
+    box-shadow: 0 1px 5px black;
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+}
+
+.bestBallLogo {
+    width: 10vh;
+    height: 10vh;
+    display: inline-block;
+    margin: 1.5vh 0 1.5vh 4vw;
+}

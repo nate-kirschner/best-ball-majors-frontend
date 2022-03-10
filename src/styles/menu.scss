@@ -1,0 +1,178 @@
+@import './defaults.scss';
+
+.menu {
+    display: flex;
+    justify-content: space-evenly;
+    // grid-template-columns: max-content max-content max-content max-content max-content;
+    // grid-template-rows: max-content max-content;
+    // margin-right: 5vh;
+    // margin: 1em 0 0 0;
+    cursor: pointer;
+    z-index: 1000;
+    // width: 80%;
+
+    .menuItem h3 {
+        margin: 0;
+    }
+
+    
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.menuItem {
+    margin: 0;
+    padding: .5em 1em 0 1em;
+    height: max-content;
+    width: 100%;
+
+    &:hover {
+        color: white;
+
+        a {
+            color: white;
+        }
+    }
+
+    &.open {
+        color: white;
+
+        &::after {
+            display: block;
+            content: "";
+            width: 100%; 
+            height: 5px; 
+        }
+    }
+
+    @include tablet {
+        font-size: 16px;
+    }
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+    }
+
+    @include wideScreen {
+        font-size: 34px;
+    }
+}
+
+.menuDropdown {
+    position: absolute;
+    background: var(--gray);
+    margin: 0;
+    height: max-content;
+    transition: left .3s;
+    z-index: 9;
+    box-shadow: 0px 2px 5px black;
+    
+    @include tablet {
+        width: 12vw;
+        transform: translateX(-6vw);
+    }
+
+}
+
+.menuItemsItem {
+    text-align: center;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 3vh 0;
+
+    &:hover {
+        color: white;
+    }
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 32px;
+    }
+}
+
+.menuTitle {
+    margin-top: 2vh;
+}
+
+
+////////////// Small Screen ///////////////
+
+.menu.smallScreen {
+    margin: 0;
+    width: max-content;
+    height: max-content;
+}
+
+.smallScreen .menuTitle {
+    margin: 1em;
+    font-size: 16px;
+}
+
+.smallScreen .menuItem {
+    display: block;
+    border: none;
+    margin: 1em 0;
+    color: white;
+}
+
+.smallScreen .menuItemsItem {
+    display: block;
+    width: 100%;
+    margin: .25em 0;
+    padding: 1em 0 0 0;
+    border: none;
+}
+
+.smallScreen .dropdown {
+    overflow: hidden;
+
+    &.open {
+        height: 6em;
+        border: none;
+        transition: height .5s;   
+    }
+
+    &.closed {
+        height: 0;
+        border: none;
+        transition: height .5s;
+    }
+}
+
+.dropdownArrowMenu {
+    position: relative;
+    top: 7px;
+    left: 7px;
+}
+
+.menuPullout {
+    position: absolute;
+    background-color: var(--blue);
+    width: 80vw;
+    height: 100vh;
+    top: 0;
+    left: 20%;
+    box-shadow: -1px 0 5px black;
+    border: 1px solid black;
+    animation: slideOut .3s linear;
+}
+
+@keyframes slideOut {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 20%;
+    }
+}

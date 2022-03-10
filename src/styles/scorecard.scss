@@ -1,0 +1,105 @@
+@import './defaults.scss';
+
+.scorecard {
+    width: 100%;
+    margin: 1em 0;
+    // margin: 1em 0 1em 5%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+
+    @include laptop {
+        width: 90%;
+        margin: 1em auto;
+    }
+}
+
+.scorecardMenu {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border: none;
+}
+
+.roundHeader {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-size: 14px;
+
+    @include laptop {
+        font-size: 16px;
+    }
+
+    @include largeDesktop {
+        font-size: 20px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.sliderBox {
+    margin: 0;
+    width: 100%;
+}
+
+.slider {
+    position: relative;
+    display: inline-block;
+    width: 15%;
+    height: 3px;
+    background-color: var(--blue-magenta);
+    transition: margin .3s;
+    border-radius: 30px;
+}
+
+.scorecardTable {
+    overflow-x: scroll;
+
+    @include tablet {
+        overflow-x: hidden;
+    }
+}
+
+.cardTable {
+    border-collapse: collapse;
+    margin: 2em 1em;
+    font-size: 14px;
+
+    @include tablet {
+        margin: 2em auto;
+    }
+
+    @include laptop {
+        font-size: 16px;
+    }
+
+    @include largeDesktop {
+        font-size: 20px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+
+}
+
+.cardTable td {
+    border: 1px solid black;
+    // font-size: 10px;
+    
+    padding: 1em .5em;
+
+    @include tablet {
+        padding: 1em .8em;
+    }
+
+    @include desktop {
+        padding: 1em 1.2em;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}

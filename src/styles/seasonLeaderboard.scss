@@ -1,0 +1,33 @@
+@import './defaults.scss';
+
+.tournamentSelect, .leagueSelect {
+    width: 10em;
+    height: 2em;
+    margin: 2em 1em 1em 1em;
+    background-color: var(--blue-magenta);
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+
+    @include tablet {
+        width: 14em;
+        height: 3em;
+        border-radius: 10px;
+        margin: 2em 4em 1em 4em;
+    }
+    
+    @include laptop {
+        font-size: 16px;
+    }
+
+    @include largeDesktop {
+        font-size: 20px;
+        border-radius: 15px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+        border-radius: 25px;
+    }
+}

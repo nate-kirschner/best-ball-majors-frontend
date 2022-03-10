@@ -1,0 +1,258 @@
+@import './defaults.scss';
+
+.rosterCard {
+    width: 90%;
+    height: max-content;
+    margin: 5vh auto;
+    border: 1px solid black;
+    position: relative;
+    border-radius: 20px;
+    display: block;
+    background-color: rgb(230, 230, 230);
+}
+
+.rosterTitleDiv {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    // justify-content: space-around;
+    flex-wrap: wrap;
+    position: relative;
+    // border: 1px solid black;
+
+    @include tablet {
+        flex-wrap: nowrap;
+    }
+}
+
+.rosterTitleDiv .rosterName, .rosterTournamentName, .rosterLeaguesDropdown {
+    display: inline-block;
+    width: max-content;
+    text-align: left;
+    margin: 10px 0 0 0;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+
+    @include tablet {
+        width: 33%;
+    }
+
+    @include desktop {
+        font-size: 22px;
+    }
+
+    @include largeDesktop {
+        font-size: 28px;
+    }
+
+    @include wideScreen {
+        font-size: 40px;
+    }
+}
+
+.rosterTitleDiv .rosterName {
+    padding-top: 6px;
+}
+
+.rosterTitleDiv .rosterTournamentName {
+    padding-top: 6px;
+}
+
+.rosterTitleDiv .rosterLeaguesDropdown {
+    
+}
+
+.popover {
+    background-color: rgb(146, 146, 146);
+    position: absolute;
+    box-shadow: 0 1px 5px black;
+    border-radius: 10px;
+    padding: 0 1em;
+    width: max-content;
+    font-size: 16px;
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.rosterTitleDiv .dropdownArrow, .leagueDropdown .dropdownArrow {
+    position: relative;
+    top: 6px;
+    left: 2px;
+
+    @include wideScreen {
+        top: 2px;
+        left: 6px;
+    }
+}
+
+
+.rosterPlayersDiv {
+    
+}
+
+.parAndScorecardsDiv {
+    overflow-x: scroll;
+    margin: 1em .5em;
+    padding: 0;
+    // background-color: red;
+}
+
+.rosterPlayersDiv .row {
+    width: 95%;
+    display: flex;
+    text-align: left;
+    margin: 1em auto;
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px black;
+}
+
+.rosterPlayersDiv .playersCardHeaders {
+    // border: 1px solid black;
+    background-color: var(--blue);
+    box-shadow: none;
+    border: none;
+}
+
+.rosterPlayersDiv .rosterHeader {
+    // display: inline-block;
+    text-align: center;
+    display: inline;
+    width: 100%;
+    padding: 1em 0;
+    margin: 0 .5em;
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+    width: 16.6666666%;
+
+    &.selected {
+        text-decoration: underline;
+    }
+
+    @include tablet {
+        font-size: 14px;
+    }
+
+    @include laptop {
+        font-size: 16px;
+    }
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.rosterPlayersDiv .playerCardRow {
+    cursor: pointer;
+    background-color: white;
+}
+
+.rosterPlayersDiv .playerCardData {
+    display: inline;
+    width: 16.6666666%;
+    text-align: center;
+    font-size: 12px;
+
+    @include tablet {
+        font-size: 14px;
+    }
+
+    @include laptop {
+        font-size: 16px;
+    }
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.rosterPlayersDiv .scorecardHeaderDiv {
+
+    @include desktop {
+        display: grid;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+        background-color: white;
+    }
+    
+}
+
+.scorecardDiv {
+    width: max-content !important;
+    // margin-left: 4vw !important;
+    // margin-right: 4vw !important;
+
+    @include desktop {
+        display: grid;
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-flow: column;
+        background-color: white;
+        width: 97.5% !important;
+        margin: auto;
+    }
+}
+
+.scorecardDiv .scorecardData {
+    justify-self: center;
+    text-align: center;
+    font-size: 12px;
+    // width: max-content;
+    width: 10vw;
+    margin-left: .5em;
+    margin-right: .5em;
+
+
+    @include tablet {
+        font-size: 14px;
+        width: 7.5vw;
+    }
+
+    @include laptop {
+        font-size: 16px;
+        width: 5vw;
+    }
+
+    @include desktop {
+        font-size: 18px;
+        width: 100%;
+    }
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.rosterPlayersDiv .scorecardDiv {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    background-color: white;
+}

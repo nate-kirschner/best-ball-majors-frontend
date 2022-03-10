@@ -1,0 +1,54 @@
+@import './defaults.scss';
+
+.leagueButton {
+    padding: 1em 1em;
+    min-width: max-content;
+    width: 15em;
+    border-radius: 20px;
+    background-color: var(--blue-magenta);
+    margin: 0 0 1em 0;
+    position: relative;
+    display: inline-block;
+    color: white;
+
+    a {
+        color: white;
+    }
+
+    @include tablet {
+        margin: 1em 2em;
+    }
+
+    @include largeDesktop {
+        font-size: 22px;
+        border-radius: 30px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+    
+}
+
+.leaguePageHeader {
+    font-size: 36px;
+    margin: .5em;
+
+    @include largeDesktop {
+        font-size: 45px;
+    }
+
+    @include wideScreen {
+        font-size: 60px;
+    }
+}
+
+// .newLeaguePopup {
+//     width: 80%;
+//     height: 80%;
+//     position: fixed;
+//     top: 10%;
+//     left: 10%;
+//     background-color: gray;
+//     z-index: 99999999;
+// }

@@ -1,0 +1,43 @@
+@import './defaults.scss';
+
+.rosters {
+    // height: 85vh;
+    // height: max-content;
+}
+
+.rostersPageHeader {
+    font-size: 36px;
+    margin: .5em auto;
+    
+
+    @include largeDesktop {
+        font-size: 45px;
+    }
+
+    @include wideScreen {
+        font-size: 60px;
+    }
+}
+
+.createRosterButton {
+    padding: 1em 1em;
+    width: max-content;
+    border-radius: 20px;
+    background-color: var(--blue-magenta);
+    margin: 0 auto 2em auto;
+    position: relative;
+    display: block;
+    color: white;
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 30px;
+    }
+}

@@ -1,0 +1,251 @@
+@import './defaults.scss';
+
+.createRoster {
+}
+
+.chooseText {
+    font-size: 16px;
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+    }
+
+    @include wideScreen {
+        font-size: 30px;
+    }
+}
+
+.createRosterTable {
+    margin: 0 0 2em 0;
+    height: max-content;
+}
+
+.createRosterRow {
+    margin-left: 5%;
+    width: 90%;
+    // width: 100%;
+}
+
+.createRosterCell {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 1em 0;
+    width: 100%;
+
+    &.check {
+        width: calc(10% - 2px);
+
+        input {
+            margin: 0;
+        }
+    }
+
+    &.name {
+        width: calc(80% - 2px);
+        
+    }
+
+    &.rank {
+        width: calc(10% - 2px);
+        
+    }
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+    }
+
+    @include wideScreen {
+        font-size: 30px;
+    }
+}
+
+.rosterOptionsDiv {
+    margin: 2em 0 0 0;
+    display: block;
+    width: 100%;
+}
+
+.rosterNameLabel {
+    font-size: 14px;
+    width: 90%;
+    margin-right: 1em;
+    display: block;
+    text-align: left;
+    margin: 0 0 0 5%;
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+    }
+
+    @include wideScreen {
+        font-size: 32px;
+    }
+}
+
+.rosterNameInput {
+    display: block;
+    width: 90%;
+    height: 40px;
+    margin: 5px 0 5vh 5%;
+    font-size: 16px;
+
+    @include desktop {
+        font-size: 18px;
+        height: 50px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+        height: 60px;
+    }
+
+    @include wideScreen {
+        font-size: 32px;
+        height: 70px;
+    }
+}
+
+.leagueDropdown {
+    display: block;
+    width: 90%;
+    height: 40px;
+    margin: 5px 0 0 5%;
+    font-size: 16px;
+    background-color: white;
+    border: 1px solid gray;
+    cursor: pointer;
+    // display: inline-block;
+
+    @include desktop {
+        font-size: 18px;
+        height: 50px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+        height: 60px;
+    }
+
+    @include wideScreen {
+        font-size: 32px;
+        height: 70px;
+    }
+}
+
+.dropdown {
+    background-color: white;
+    border: 1px solid gray;
+    
+}
+
+.leagueOption {
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+        background-color: rgb(195, 195, 195);
+    }
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 24px;
+    }
+
+    @include wideScreen {
+        font-size: 30px;
+    }
+}
+
+.selectedLeagues {
+    display: inline-block;
+    margin: 0 1em;
+}
+
+.selectedLeagueOption {
+    cursor: pointer;
+    border: 1px solid gray;
+    margin: .5em 0;
+    padding: .5em;
+    border-radius: 10px;
+
+    &:hover {
+        background-color: rgb(230, 29, 29);
+    }
+
+    @include largeDesktop {
+        font-size: 20px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.submitButton {
+    padding: 1em;
+    background-color: var(--blue-magenta);
+    width: max-content;
+    margin: 1em auto;
+    cursor: pointer;
+    color: white;
+
+    @include largeDesktop {
+        font-size: 22px;
+    }
+
+    @include wideScreen {
+        font-size: 28px;
+    }
+}
+
+.titleDiv {
+    position: relative;
+}
+
+.createRoster .pageTitle {
+    // margin: 0;
+}
+
+.backButton {
+    margin: 10px 0 0 0;    
+
+    @include tablet {
+        height: max-content;
+        overflow: auto;
+        margin: auto;
+        position: absolute;
+        top: 0; 
+        left: 5%; 
+        bottom: 0;
+        color: rgb(83, 83, 83);
+        font-weight: 900;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    @include wideScreen {
+        font-size: 26px;
+    }
+}
+
+.backArrow {
+    width: auto;
+    height: 100%;
+    margin: 0 5px 0 0;
+    // background-color: green;
+}

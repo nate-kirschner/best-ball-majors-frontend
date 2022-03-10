@@ -1,0 +1,43 @@
+@import './defaults.scss';
+
+.infoPage {
+
+}
+
+.infoPage .title {
+    font-size: 24px;
+
+    @include laptop {
+        font-size: 28px;
+    }
+
+    @include largeDesktop {
+        font-size: 40px;
+    }
+
+    @include wideScreen {
+        font-size: 54px;
+    }
+}
+
+.aboutText {
+    width: 90vw;
+    margin: 0 0 20px 5vw;
+    font-size: 15px;
+
+    @include laptop {
+        font-size: 16px;
+    }
+
+    @include desktop {
+        font-size: 18px;
+    }
+
+    @include largeDesktop {
+        font-size: 26px;
+    }
+
+    @include wideScreen {
+        font-size: 30px;
+    }
+}
