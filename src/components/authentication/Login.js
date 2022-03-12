@@ -1,5 +1,5 @@
 import AuthMethods from "./AuthMethods";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import useComponentWillMount from "../hooks/componentWillMountHook";
 import { Link } from 'react-router-dom';
@@ -10,11 +10,11 @@ export default function Login({ setLoggedIn }) {
 
     const Auth = new AuthMethods();
 
-    useComponentWillMount(() => {
+    useEffect(() => {
         if (Auth.loggedIn()) {
             navigate("/", { replace: true });
         }
-    })
+    }, [])
 
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -48,7 +48,7 @@ export default function Login({ setLoggedIn }) {
 
             <div className="signupBlock">
                 <span className="signupLabel">Password: </span>
-                <input type="text" 
+                <input type="password" 
                     className="signupInput"
                     onChange={(e) => setPassword(e.target.value)}
                 />
@@ -59,6 +59,8 @@ export default function Login({ setLoggedIn }) {
             </button>
 
             <p className="loginText">Don't have an account? <Link to="/signup">Sign up here!</Link></p>
+
+            <p className="loginText">Forgot your password? <Link to="/forgotPassword">Reset it here!</Link></p>
         </div>
     )
 }

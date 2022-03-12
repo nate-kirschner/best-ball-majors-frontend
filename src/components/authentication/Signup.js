@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import config from '../../config';
 import axios from 'axios';
@@ -15,6 +15,12 @@ export default function Signup({ setLoggedIn }) {
     const [password, setPassword] = useState(null);
 
     const Auth = new AuthMethods();
+
+    useEffect(() => {
+        if (Auth.loggedIn()) {
+            navigate("/", { replace: true });
+        }
+    }, [])
 
     const submit = (e) => {
         e.preventDefault();

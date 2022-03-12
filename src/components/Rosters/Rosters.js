@@ -7,13 +7,11 @@ import { Link } from "react-router-dom";
 
 import "../../styles/rosters.scss";
 
-export default function Rosters() {
+export default function Rosters({ canCreateRoster }) {
 
     const Auth = useMemo(() => new AuthMethods(), []);
 
     const [rosterList, setRosterList] = useState();
-    const [rosterButton, setRosterButton] = useState();
-    const [showCreateRosterPage, setCreateRosterPage] = useState(false);
 
     useEffect(() => {
         const username = Auth.getConfirm().username;
@@ -25,7 +23,9 @@ export default function Rosters() {
     return (
             <div className="mainPage rosters">
                 <h2 className="rostersPageHeader">My Rosters</h2>
-                <Link className="createRosterButton" to="/create-roster">Create New Roster</Link>
+                {
+                    canCreateRoster && <Link className="createRosterButton" to="/create-roster">Create New Roster</Link>
+                }
                 {
                     rosterList && rosterList.map(roster => {
                         const rosterData = {

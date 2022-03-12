@@ -24,6 +24,8 @@ import AboutUs from './components/TextPages/AboutUs';
 import Footer from './components/Footer';
 
 import Alert from '@mui/material/Alert';
+import ForgotPassword from './components/authentication/ForgotPassword';
+import ResetPassword from './components/authentication/ResetPassword';
 
 
 function App() {
@@ -61,8 +63,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
         <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/passwordReset" element={<ResetPassword />} />
 
-        <Route path="/rosters" element={<AuthComponent Component={<Rosters />} />} />
+        <Route path="/rosters" element={<AuthComponent Component={<Rosters canCreateRoster={canCreateRoster} />} />} />
         <Route path="/create-roster" 
           element={<AuthComponent Component={<CreateRoster canCreateRoster={canCreateRoster}/>} />} 
         />

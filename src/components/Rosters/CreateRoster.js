@@ -7,9 +7,15 @@ import "../../styles/createRoster.scss";
 import "../../styles/rosterCard.scss"
 import { useNavigate } from "react-router-dom";
 
-export default function CreateRoster() {
+export default function CreateRoster({ canCreateRoster }) {
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!canCreateRoster) {
+            navigate("/rosters", { replace: true });
+        }
+    }, [canCreateRoster])
 
     const [playersData, setPlayersData] = useState();
     const [usersLeagues, setUsersLeagues] = useState([]);
@@ -25,7 +31,6 @@ export default function CreateRoster() {
     useEffect(() => {
         axios.post(config.url + "/get-players-in-current-tournament").then(resp => {
             setPlayersData(resp.data);
-            // setPlayersData(fakePlayerData);
         })
     }, []);
 
