@@ -31,12 +31,6 @@ export default function HowToPlay() {
                 golf rankings appear on the right. Placements and rankings may
                 differ from tournament to tournament.
       </p>
-      <p className="aboutText">
-      Here is an example scorecard during for the fourth round of a
-            tournament. This roster was entered in the Best Ball Tournament
-            and has two players who were cut after the second round. Green
-            boxes indicate a birdie, yellow an eagle, and red a bogey.
-      </p>
     </div>
   )
 }
