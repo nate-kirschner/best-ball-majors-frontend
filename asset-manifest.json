@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/best-ball-majors-frontend/static/css/main.62b69721.css",
+    "main.js": "/best-ball-majors-frontend/static/js/main.fd7e4390.js",
+    "static/js/787.cda612ba.chunk.js": "/best-ball-majors-frontend/static/js/787.cda612ba.chunk.js",
+    "static/media/bestBall-512x512.png": "/best-ball-majors-frontend/static/media/bestBall-512x512.5391628ededcaa236abf.png",
+    "index.html": "/best-ball-majors-frontend/index.html",
+    "main.62b69721.css.map": "/best-ball-majors-frontend/static/css/main.62b69721.css.map",
+    "main.fd7e4390.js.map": "/best-ball-majors-frontend/static/js/main.fd7e4390.js.map",
+    "787.cda612ba.chunk.js.map": "/best-ball-majors-frontend/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62b69721.css",
+    "static/js/main.fd7e4390.js"
+  ]
+}
