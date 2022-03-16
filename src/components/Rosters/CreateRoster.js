@@ -5,23 +5,23 @@ import AuthMethods from "../authentication/AuthMethods";
 
 import "../../styles/createRoster.scss";
 import "../../styles/rosterCard.scss"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function CreateRoster({ canCreateRoster }) {
 
     const navigate = useNavigate();
 
+    let query = useQuery();
+    const [rosterId, setRosterId] = useState(null);
     useEffect(() => {
-        if (!canCreateRoster) {
-            navigate("/rosters", { replace: true });
-        }
-    }, [canCreateRoster])
+        setRosterId(query.get("id"))
+    }, [])
 
     const [playersData, setPlayersData] = useState();
     const [usersLeagues, setUsersLeagues] = useState([]);
 
     const [selectedPlayers, setSelectedPlayers] = useState({ 1: null, 2: null, 3: null, 4: null});
-    const [rosterName, setRosterName] = useState("Roster 1");
+    const [rosterName, setRosterName] = useState("");
     const [selectedLeagues, setSelectedLeagues] = useState([]);
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -30,15 +30,35 @@ export default function CreateRoster({ canCreateRoster }) {
 
     useEffect(() => {
         axios.post(config.url + "/get-players-in-current-tournament").then(resp => {
-            setPlayersData(resp.data);
+            setPlayersData(resp.data)
         })
     }, []);
+
+    useEffect(() => {
+        if (!!rosterId && !!playersData) {
+            axios.post(config.url + "/get-roster-data-from-id", { rosterId }).then((resp) => {
+                const roster = resp.data.roster;
+                const leagues = resp.data.leagues;
+                const selectedPlayersTemp = {};
+                setRosterName(roster.roster_name);
+                Object.keys(playersData).forEach(page => {
+                    selectedPlayersTemp[page] = playersData[page].find(player => 
+                            player.id === roster.player_1_id || 
+                            player.id === roster.player_2_id ||
+                            player.id === roster.player_3_id ||
+                            player.id === roster.player_4_id)
+                })
+                setSelectedPlayers(selectedPlayersTemp);
+                setSelectedLeagues(leagues);
+            })
+        }
+    }, [rosterId, playersData])
 
     const Auth = useMemo(() => new AuthMethods(), []);
 
     useEffect(() => {
         const username = Auth.getConfirm().username;
-        axios.post(config.url + "/get-users-leagues", { username }).then(resp => {
+        axios.post(config.url + "/get-available-leagues-for-new-roster", { username }).then(resp => {
             setUsersLeagues(resp.data);
         })
     }, [])
@@ -88,7 +108,7 @@ export default function CreateRoster({ canCreateRoster }) {
                 onClick={() => handleClickRow(pageNum, player)}
             >
                 <div className="createRosterCell check">
-                    <input type="checkbox" checked={selectedPlayers[pageNum] && selectedPlayers[pageNum] === player}/>
+                    <input type="checkbox" checked={selectedPlayers[pageNum] && selectedPlayers[pageNum] === player} onChange={() => {}}/>
                 </div>
                 <div className="createRosterCell name">
                     <span>{player.player_name}</span>
@@ -171,7 +191,10 @@ export default function CreateRoster({ canCreateRoster }) {
                 <div className="submitButton"
                     onClick={() => submitButton()}
                 >
-                    Create Roster
+                    {
+                        rosterId ? "Update Roster" : "Create Roster"
+                    }
+                    
                 </div>
             </>
         )
@@ -193,6 +216,7 @@ export default function CreateRoster({ canCreateRoster }) {
         const username = Auth.getConfirm().username;
 
         const body = {
+            rosterId: rosterId ? rosterId : -1,
             rosterName,
             username,
             player1Id: selectedPlayers[1].id,
@@ -201,8 +225,11 @@ export default function CreateRoster({ canCreateRoster }) {
             player4Id: selectedPlayers[4].id,
             leagueIdList: selectedLeagues.map(league => league.id)
         }
-        axios.post(config.url + "/create-new-roster", body)
-
+        axios.post(config.url + "/create-new-roster", body).then(resp => {
+            if (resp.data.status === 400) {
+                alert("Error updating roster.")
+            }
+        })
         navigate("/rosters", { replace: true });
     }
 
@@ -225,7 +252,7 @@ export default function CreateRoster({ canCreateRoster }) {
 
             <div className="rosterOptionsDiv">
                 <label className="rosterNameLabel" htmlFor="rosterName">Roster Name:</label>
-                <input className="rosterNameInput" type="text" name="rosterName" placeholder="Roster 1" onChange={(e) => setRosterName(e.target.value)} />
+                <input className="rosterNameInput" type="text" name="rosterName" placeholder="Roster 1" onChange={(e) => setRosterName(e.target.value)} value={rosterName}/>
             </div>
             <div className="rosterOptionsDiv">
                 <label className="rosterNameLabel">
@@ -248,4 +275,10 @@ export default function CreateRoster({ canCreateRoster }) {
             }            
         </div>
     )
+}
+
+function useQuery() {
+    const { search } = useLocation();
+  
+    return useMemo(() => new URLSearchParams(search), [search]);
 }

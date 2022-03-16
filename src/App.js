@@ -36,7 +36,8 @@ function App() {
 
   useEffect(() => {
     axios.post(config.url + "/can-rosters-be-created").then(resp => {
-        setCanCreateRoster(resp.data.canRostersBeCreated);
+        // setCanCreateRoster(resp.data.canRostersBeCreated);
+        setCanCreateRoster(true);
     })
   })
   

@@ -42,7 +42,7 @@ export default function Rosters({ canCreateRoster }) {
                             bestBallRound4: roster.bestBallRound4,
                             bestBallTotal: roster.bestball_total
                         }
-                        return <RosterCard rosterData={rosterData} />
+                        return <RosterCard rosterData={rosterData} canCreateRoster={canCreateRoster} />
                     })
                 }
             </div>

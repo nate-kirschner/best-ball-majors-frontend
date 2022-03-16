@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import config from "../../config";
+import useOutsideClickedAction from "../hooks/useOutsideClickedAction";
+import { useNavigate } from "react-router-dom";
 
 import "../../styles/rosterCard.scss";
 
-export default function RosterCard({ rosterData }) {
+export default function RosterCard({ rosterData, canCreateRoster }) {
 
     const {
         rosterId,
@@ -21,6 +23,8 @@ export default function RosterCard({ rosterData }) {
         bestBallTotal
     } = rosterData
 
+    const navigate = useNavigate();
+
     const [tournamentName, setTournamentName] = useState();
     const [player1, setPlayer1] = useState();
     const [player2, setPlayer2] = useState();
@@ -34,6 +38,12 @@ export default function RosterCard({ rosterData }) {
     const [scorecardData, setScorecardData] = useState();
     const [bestBallData, setBestBallData] = useState();
 
+    const [currentTournamentId, setCurrentTournamentId] = useState();
+    const [showRosterMenu, setShowRosterMenu] = useState(false);
+    const rosterMenuRef = useRef();
+    const rosterMenuOptionsRef = useRef();
+    useOutsideClickedAction(rosterMenuOptionsRef, setShowRosterMenu);
+
     useEffect(() => {
         axios.post(config.url + "/get-individual-roster-data", rosterData).then(resp => {
             setTournamentName(resp.data.tournamentName);
@@ -44,6 +54,12 @@ export default function RosterCard({ rosterData }) {
             setLeagues(resp.data.leagues);
         })
         
+    }, [])
+
+    useEffect(() => {
+        axios.get(config.url + "/get-current-tournament").then(resp => {
+            setCurrentTournamentId(resp.data.id);
+        })
     }, [])
 
     useEffect(() => {
@@ -207,44 +223,122 @@ export default function RosterCard({ rosterData }) {
         return data;
     }
 
+    const displayRosterMenuButton = () => {
+        if (canCreateRoster && tournamentId === currentTournamentId) {
+            return (
+                <>
+                    <img src="https://img.icons8.com/windows/32/000000/menu-2.png"
+                        className="rosterMenuButton"
+                        ref={rosterMenuRef} 
+                        onClick={() => setShowRosterMenu(!showRosterMenu)}
+                    />
+                    {
+                        showRosterMenu && displayRosterMenu()
+                    }
+                </>
+            )
+        } else {
+            return null;
+        }
+    }
+
+    const displayRosterMenu = () => {
+        const { offsetTop, offsetLeft, clientHeight, clientWidth } = rosterMenuRef.current
+        const style = {
+            left: `calc(${offsetLeft + (clientWidth / 2)}px)`,
+            top: `${offsetTop + clientHeight + 5}px`,
+            transform: 'translateX(-50%)'
+        };
+        return (
+            <div className="popover rosterMenuPopover" style={style} ref={rosterMenuOptionsRef}>
+                <div className="rosterMenuOption" onClick={() => handleEditRosterClicked()}>
+                    Edit
+                </div>
+                <div className="rosterMenuOption" onClick={() => setDeleteRostersPopup(true)}>
+                    Delete
+                </div>
+            </div>
+        )
+    }
+
+    const handleEditRosterClicked = () => {
+        navigate(`/create-roster?id=${rosterId}`, { replace: true });
+    }
+
+    const [deleteRostersPopup, setDeleteRostersPopup] = useState(false);
+
+    const showDeleteRostersPopup = () => {
+        return (
+            <div className="popupCover">
+                <div className="deleteRosterPopup">
+                    <h4>Are you sure you want to delete this roster?</h4>
+                    <div className="popupButton cancel"
+                        onClick={() => setDeleteRostersPopup(false)}
+                    >Cancel</div>
+                    <div className="popupButton confirm"
+                        onClick={() => handleConfirmDeleteRoster()}
+                    >Confirm</div>
+                </div>
+            </div>
+        )
+    }
+
+    const handleConfirmDeleteRoster = () => {
+        const body = { rosterId, rosterTournamentId: tournamentId };
+        axios.post(config.url + "/delete-roster", body).then(resp => {
+            if (resp.data.status === 400) {
+                alert("Error deleting roster")
+            }
+            setDeleteRostersPopup(false);
+        })
+    }
+
     return (
-        <div className="rosterCard">
-            <div className="rosterTitleDiv">
-                <h3 className="rosterName">{rosterName}</h3>
-                <h3 className="rosterTournamentName">{tournamentName}</h3>
-                {
-                    <DisplayLeagues leagues={leagues} />
-                }
-            </div>
-            <div className="rosterPlayersDiv">
-                <div className="row playersCardHeaders">
-                    <h4 className="rosterHeader">Name</h4>
-                    <h4 className={"rosterHeader " + (selectedRound === "round1" ? "selected" : "")} 
-                        onClick={() => setSelectedRound("round1")}
-                    >Round 1</h4>
-                    <h4 className={"rosterHeader " + (selectedRound === "round2" ? "selected" : "")} 
-                        onClick={() => setSelectedRound("round2")}
-                    >Round 2</h4>
-                    <h4 className={"rosterHeader " + (selectedRound === "round3" ? "selected" : "")} 
-                        onClick={() => setSelectedRound("round3")}
-                    >Round 3</h4>
-                    <h4 className={"rosterHeader " + (selectedRound === "round4" ? "selected" : "")} 
-                        onClick={() => setSelectedRound("round4")}
-                    >Round 4</h4>
-                    <h4 className={"rosterHeader " + (selectedRound === "total" ? "selected" : "")} 
-                        onClick={() => setSelectedRound("total")}
-                    >Total</h4>
-                </div>
-                <div className="parAndScorecardsDiv">
+        <>
+            {
+                deleteRostersPopup && showDeleteRostersPopup()
+            }
+            <div className="rosterCard">
+                <div className="rosterTitleDiv">
+                    <h3 className="rosterName">{rosterName}</h3>
+                    <h3 className="rosterTournamentName">{tournamentName}</h3>
                     {
-                        showPar()
+                        <DisplayLeagues leagues={leagues} />
                     }
                     {
-                        scorecardData && buildRows()
+                        displayRosterMenuButton()
                     }
                 </div>
+                <div className="rosterPlayersDiv">
+                    <div className="row playersCardHeaders">
+                        <h4 className="rosterHeader">Name</h4>
+                        <h4 className={"rosterHeader " + (selectedRound === "round1" ? "selected" : "")} 
+                            onClick={() => setSelectedRound("round1")}
+                        >Round 1</h4>
+                        <h4 className={"rosterHeader " + (selectedRound === "round2" ? "selected" : "")} 
+                            onClick={() => setSelectedRound("round2")}
+                        >Round 2</h4>
+                        <h4 className={"rosterHeader " + (selectedRound === "round3" ? "selected" : "")} 
+                            onClick={() => setSelectedRound("round3")}
+                        >Round 3</h4>
+                        <h4 className={"rosterHeader " + (selectedRound === "round4" ? "selected" : "")} 
+                            onClick={() => setSelectedRound("round4")}
+                        >Round 4</h4>
+                        <h4 className={"rosterHeader " + (selectedRound === "total" ? "selected" : "")} 
+                            onClick={() => setSelectedRound("total")}
+                        >Total</h4>
+                    </div>
+                    <div className="parAndScorecardsDiv">
+                        {
+                            showPar()
+                        }
+                        {
+                            scorecardData && buildRows()
+                        }
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     )
 }
 
@@ -272,7 +366,7 @@ const DisplayLeagues = ({ leagues }) => {
     return (
         <>
             <h3 className="rosterLeaguesDropdown" 
-                onMouseEnter={handlePopoverOpen}
+                // onMouseEnter={handlePopoverOpen}
                 onClick={handlePopoverOpen}
                 onMouseLeave={handlePopoverClose}
                 ref={leaguesTextRef}

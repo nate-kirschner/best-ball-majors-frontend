@@ -52,7 +52,11 @@ export default function SeasonLeaderboard() {
                     >
                         {
                             allUserLeagues.map(league => {
-                                return <option value={league.id}>{league.league_name}</option>
+                                return (
+                                    <option value={league.id}>
+                                        {league.league_name === "BestBallTourn" ? "Best Ball Tournament" : league.league_name}
+                                    </option>
+                                )
                             })
                         }
                     </select>

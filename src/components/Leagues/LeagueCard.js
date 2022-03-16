@@ -21,7 +21,7 @@ export default function LeagueCard({ leagueId, leagueName, tournamentList }) {
     return (
         <div className="leagueCard">
             <div className="leagueTitleDiv">
-                <h3 className="leagueName">{leagueName}</h3>
+                <h3 className="leagueName">{leagueName === "BestBallTourn" ? "Best Ball Tournament" : leagueName}</h3>
             </div>
             <div className="leaguePlayersDiv">
                 <div className="row playersCardHeaders">

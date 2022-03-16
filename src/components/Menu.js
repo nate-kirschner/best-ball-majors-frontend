@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import '../styles/menu.scss';
 import useWindowDimensions from './hooks/windowSizeHook';
+import useOutsideClickedAction from './hooks/useOutsideClickedAction';
 
 export default function Menu({ loggedIn }) {
 
@@ -19,7 +20,7 @@ export default function Menu({ loggedIn }) {
     const { width } = useWindowDimensions();
 
     const smallScreenMenuRef = useRef();
-    useOutsideAlerter(smallScreenMenuRef, setMenuOpen);
+    useOutsideClickedAction(smallScreenMenuRef, setMenuOpen);
 
     const display = () => {
         if (width >= 768) {
@@ -203,19 +204,4 @@ export default function Menu({ loggedIn }) {
 
     return display();
         
-}
-
-function useOutsideAlerter(ref, setMenuOpen) {
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (ref.current && !ref.current.contains(event.target)) {
-                setMenuOpen(false);
-            }
-        }
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [ref]);
 }

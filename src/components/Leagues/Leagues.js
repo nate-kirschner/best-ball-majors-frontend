@@ -16,7 +16,7 @@ export default function Leagues() {
     useEffect(() => {
         const username = Auth.getConfirm().username;
         axios.post(config.url + "/get-users-leagues", { username }).then(resp => {
-            setLeaguesList(resp.data);
+            setLeaguesList(resp.data.filter(league => league.league_name !== "BestBallTourn"));
         })
     }, [Auth])
 
