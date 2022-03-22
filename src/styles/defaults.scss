@@ -25,7 +25,7 @@
 html {
     background-color: var(--cyan-blue);
 
-    --gray: linear-gradient(351deg, rgba(126,126,126,1) 10%, rgba(167,167,167,1) 90%);
+    --gray: linear-gradient(351deg, rgba(180,180,180,1) 10%, rgba(200,200,200,1) 90%);
 
     // color wheel colors
 
@@ -41,11 +41,13 @@ html {
 
 
     ///////////////////////////////////////////
-    --cyan-blue: #0386ae;
+    // --cyan-blue: #0386ae;
+    --blue-magenta: #02a145;
 
     --blue: #02a145;
 
-    --blue-magenta: #020ba9;
+    --cyan-blue: #04461f;
+    // --blue-magenta: #020ba9;
     ///////////////////////////////////////////
 
     
@@ -76,7 +78,8 @@ body {
 
 .mainPage {
     width: 100vw;
-    height: 87vh;
+    min-height: 87vh;
+    height: max-content;
     overflow-x: hidden;
     position: relative;
     background-color: rgb(245, 245, 245);

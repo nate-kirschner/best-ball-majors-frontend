@@ -28,12 +28,17 @@ a {
     padding: .5em 1em 0 1em;
     height: max-content;
     width: 100%;
+    color: white;
+
+    a {
+        color: white;
+    }
 
     &:hover {
-        color: white;
+        text-decoration: underline;
 
         a {
-            color: white;
+            text-decoration: underline;
         }
     }
 
@@ -89,7 +94,7 @@ a {
     padding: 3vh 0;
 
     &:hover {
-        color: white;
+        text-decoration: underline;
     }
 
     @include largeDesktop {

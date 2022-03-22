@@ -10,12 +10,13 @@
     box-shadow: 0 1px 5px black;
     position: sticky;
     top: 0;
+    left: 0;
     z-index: 99999;
 }
 
 .bestBallLogo {
     width: 10vh;
-    height: 10vh;
+    height: auto;
     display: inline-block;
     margin: 1.5vh 0 1.5vh 4vw;
 }
