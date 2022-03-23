@@ -1,5 +1,5 @@
 import Menu from './Menu';
-import bestBallLogo from '../images/bestBall-512x512.png';
+import bestBallLogo from '../images/bestBall - wht.png';
 import { useNavigate } from "react-router-dom";
 
 
