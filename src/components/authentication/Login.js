@@ -24,7 +24,7 @@ export default function Login({ setLoggedIn }) {
 
         Auth.login(username, password).then(resp => {
             if (!resp || resp.success !== 200) {
-                return alert("Incorrect username or password");
+                alert("Incorrect username or password");
             }
             setLoggedIn(true)
             navigate("/", { replace: true });

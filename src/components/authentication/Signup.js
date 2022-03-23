@@ -30,10 +30,11 @@ export default function Signup({ setLoggedIn }) {
             email: email,
             password: password
           }).then(resp => {
-              if (resp.data.status === 200) {
+              if (resp.data.success === 200) {
                 axios.post(config.url + "/join-league", { username, leagueName: "BestBallTourn" })
                 .then(result => {
                     Auth.login(username, password).then(resp => {
+                        console.log(resp);
                         if (!resp || resp.success !== 200) {
                             return alert("Incorrect username or password");
                         }
@@ -43,6 +44,8 @@ export default function Signup({ setLoggedIn }) {
                         alert(err);
                     })
                 })
+              } else {
+                  alert(resp.data.message);
               }
             
           });
