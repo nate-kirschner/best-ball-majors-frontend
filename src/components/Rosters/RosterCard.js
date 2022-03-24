@@ -5,6 +5,7 @@ import useOutsideClickedAction from "../hooks/useOutsideClickedAction";
 import { useNavigate } from "react-router-dom";
 
 import "../../styles/rosterCard.scss";
+import "../../styles/scorecard.scss";
 
 export default function RosterCard({ rosterData, canCreateRoster }) {
 
@@ -231,6 +232,7 @@ export default function RosterCard({ rosterData, canCreateRoster }) {
                         className="rosterMenuButton"
                         ref={rosterMenuRef} 
                         onClick={() => setShowRosterMenu(!showRosterMenu)}
+                        alt=""
                     />
                     {
                         showRosterMenu && displayRosterMenu()
@@ -293,6 +295,20 @@ export default function RosterCard({ rosterData, canCreateRoster }) {
         })
     }
 
+    const generateMarginString = () => {
+        if (selectedRound === "round1") {
+            return '0 48% 0 0';
+        } else if (selectedRound === "round2") {
+            return '0 16% 0 0';
+        } else if (selectedRound === "round3") {
+            return '0 -16% 0 0';
+        } else if (selectedRound === "round4") {
+            return '0 -48% 0 0';
+        } else if (selectedRound === "total") {
+            return '0 -80% 0 0';
+        }
+    }
+
     return (
         <>
             {
@@ -311,22 +327,27 @@ export default function RosterCard({ rosterData, canCreateRoster }) {
                 </div>
                 <div className="rosterPlayersDiv">
                     <div className="row playersCardHeaders">
-                        <h4 className="rosterHeader">Name</h4>
-                        <h4 className={"rosterHeader " + (selectedRound === "round1" ? "selected" : "")} 
+                        <h4 className={"rosterHeader roundHeader " + (selectedRound === "total" ? "selected" : "")} 
+                            onClick={() => setSelectedRound("total")}
+                        >Name</h4>
+                        <h4 className={"rosterHeader roundHeader " + (selectedRound === "round1" ? "selected" : "")} 
                             onClick={() => setSelectedRound("round1")}
                         >Round 1</h4>
-                        <h4 className={"rosterHeader " + (selectedRound === "round2" ? "selected" : "")} 
+                        <h4 className={"rosterHeader roundHeader " + (selectedRound === "round2" ? "selected" : "")} 
                             onClick={() => setSelectedRound("round2")}
                         >Round 2</h4>
-                        <h4 className={"rosterHeader " + (selectedRound === "round3" ? "selected" : "")} 
+                        <h4 className={"rosterHeader roundHeader " + (selectedRound === "round3" ? "selected" : "")} 
                             onClick={() => setSelectedRound("round3")}
                         >Round 3</h4>
-                        <h4 className={"rosterHeader " + (selectedRound === "round4" ? "selected" : "")} 
+                        <h4 className={"rosterHeader roundHeader " + (selectedRound === "round4" ? "selected" : "")} 
                             onClick={() => setSelectedRound("round4")}
                         >Round 4</h4>
-                        <h4 className={"rosterHeader " + (selectedRound === "total" ? "selected" : "")} 
+                        <h4 className={"rosterHeader roundHeader " + (selectedRound === "total" ? "selected" : "")} 
                             onClick={() => setSelectedRound("total")}
                         >Total</h4>
+                    </div>
+                    <div className="sliderBox">
+                        <div className="slider " style={{ margin: `${generateMarginString()}` }}/>
                     </div>
                     <div className="parAndScorecardsDiv">
                         {
@@ -372,7 +393,7 @@ const DisplayLeagues = ({ leagues }) => {
                 ref={leaguesTextRef}
             >
                 Leagues
-                <img className="dropdownArrow" src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png"/>
+                <img className="dropdownArrow" alt="" src="https://img.icons8.com/external-those-icons-lineal-color-those-icons/24/000000/external-arrow-arrows-those-icons-lineal-color-those-icons-1.png"/>
 
                 {/* 
                     Icons8 link

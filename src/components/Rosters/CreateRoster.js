@@ -14,6 +14,7 @@ export default function CreateRoster({ canCreateRoster }) {
     let query = useQuery();
     const [rosterId, setRosterId] = useState(null);
     useEffect(() => {
+        console.log(query.get("id"))
         setRosterId(query.get("id"))
     }, [])
 
