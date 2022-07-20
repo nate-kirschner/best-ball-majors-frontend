@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import config from '../config';
+import scorecardsData from '../testData/scorecardsData.json';
 
 import '../styles/scorecard.scss';
 
@@ -15,6 +16,7 @@ export default function Scorecards({ data }) {
     const [round4, setRound4] = useState(null);
 
     useEffect(() => {
+        console.log("data", data)
         const params = {
             parId: data.parId,
             round1Id: data.round1Id,
@@ -28,6 +30,15 @@ export default function Scorecards({ data }) {
             setRound2(result.data.find(round => round.round_number === 2))
             setRound3(result.data.find(round => round.round_number === 3))
             setRound4(result.data.find(round => round.round_number === 4))  
+        })
+        .catch(error => {
+            if (!error.response) {
+                setPar(scorecardsData.find(round => round.round_number === 0 && round.player_id === data.playerId))
+                setRound1(scorecardsData.find(round => round.round_number === 1 && round.player_id === data.playerId))
+                setRound2(scorecardsData.find(round => round.round_number === 2 && round.player_id === data.playerId))
+                setRound3(scorecardsData.find(round => round.round_number === 3 && round.player_id === data.playerId))
+                setRound4(scorecardsData.find(round => round.round_number === 4 && round.player_id === data.playerId))
+            }
         })
     }, [data])
 

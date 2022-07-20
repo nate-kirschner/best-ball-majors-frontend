@@ -28,9 +28,10 @@ export default function Login({ setLoggedIn }) {
             }
             setLoggedIn(true)
             navigate("/", { replace: true });
-        }).catch(err => {
-            alert(err);
         })
+        .catch(error => {
+            alert("Oops! Looks like our servers are down right now, please try again later.")
+        });
     }
 
     return (

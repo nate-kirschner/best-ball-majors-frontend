@@ -32,7 +32,8 @@ function App() {
 
   const [canCreateRoster, setCanCreateRoster] = useState(false);
 
-  const [showAlert, setShowAlert] = useState(true)
+  const [showRosterAlert, setShowRosterAlert] = useState(true);
+  const [showServerAlert, setShowServerAlert] = useState(false);
 
   useEffect(() => {
     axios.post(config.url + "/can-rosters-be-created").then(resp => {
@@ -51,8 +52,15 @@ function App() {
 
   return (
     <div className="App">
-      {showAlert && (
-        <Alert severity="info" color="warning" onClose={() => setShowAlert(false)}>
+      {
+        showServerAlert && (
+          <Alert severity="error" color="error" variant="filled" onClose={() => setShowRosterAlert(false)}>
+            Our servers appear to be down at the moment. Check back later for full funcionality!
+          </Alert>
+        )
+      }
+      {!showServerAlert && showRosterAlert && (
+        <Alert severity="info" color="warning" onClose={() => setShowRosterAlert(false)}>
           Rosters open on Tuesday mornings and lock on Thursday mornings
         </Alert>
       )}
@@ -60,7 +68,7 @@ function App() {
       <Header loggedIn={loggedIn}/>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setShowServerAlert={setShowServerAlert} />} />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} />} />
         <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />

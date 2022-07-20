@@ -47,8 +47,9 @@ export default function Signup({ setLoggedIn }) {
               } else {
                   alert(resp.data.message);
               }
-            
-          });
+          }).catch(error => {
+            alert("Oops, looks like our servers are down right now :( Please try again later!")
+          })
     }
 
     return (

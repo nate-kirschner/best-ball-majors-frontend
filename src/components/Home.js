@@ -3,11 +3,12 @@ import axios from 'axios';
 import config from '../config';
 import useWindowDimensions from "./hooks/windowSizeHook";
 import Scorecard from "./Scorecard";
+import leaderboardData from '../testData/leaderboardData.json';
 
 import '../styles/home.scss';
 import '../styles/defaults.scss';
 
-export default function Home() {
+export default function Home({ setShowServerAlert }) {
 
     const [currentTournament, setCurrentTournament] = useState(null);
     const [data, setData] = useState(null);
@@ -16,10 +17,18 @@ export default function Home() {
     const { width } = useWindowDimensions();
 
     useEffect(() => {
-        axios.get(config.url + '/get-all-current-tournament-info').then(resp => {
+        axios.get(config.url + '/get-all-current-tournament-info')
+        .then(resp => {
             setCurrentTournament(resp.data.currentTournament);
             setData(resp.data.data);
         })
+        .catch(error => {
+            if (!error.response) {
+                setCurrentTournament(leaderboardData.currentTournament);
+                setData(leaderboardData.data);
+                setShowServerAlert(true);
+            }
+        }) 
     }, [])
 
     const buildRow = (rowData) => {
